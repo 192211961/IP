@@ -1,0 +1,33 @@
+<?php
+$name = filter_input(INPUT_POST, 'name');
+$id = filter_input(INPUT_POST, 'id');
+
+if (!empty($id)) {
+            if (!empty($name)) {
+
+                $host = "localhost";
+                $dbusername = "root";
+                $dbpassword = "";
+                $dbname = "allu";
+                $conn= new mysqli($host,$dbusername,$dbpassword,$dbname);
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                } else {
+                    $sql = "INSERT INTO arjun(name, id) VALUES ('$name', '$id')";
+
+                    if ($conn->query($sql)) {
+                        echo "New record inserted successfully";
+                        header("refresh:3;url=onee.html");
+                    } else {
+                        echo "Error: " . $sql . "<br>" . $conn->error;
+                    }
+                    $conn->close();
+                }
+        } else {
+            echo "Name should not be empty";
+        }
+    } else {
+    echo "id should not be empty";
+    die();
+}
+?>
